@@ -1,21 +1,21 @@
 <div class="list-container">
   <h1 class="list-header">Todo List</h1>
   <ul class="list">
-    <li class="list-item">
-      <div class="list-item-text">Buy a new gaming laptop</div>
-      <button class="list-item-button">Delete</button>
-    </li>
-    <li class="list-item">
-      <div class="list-item-text">Complete previous task</div>
-      <button class="list-item-button">Delete</button>
-    </li>
-    <li class="list-item">
-      <div class="list-item-text">Create some angular app</div>
-      <button class="list-item-button">Delete</button>
-    </li>
+    @for (task of tasks(); track task.id) {
+      <to-do-list-item [task]="task" [onDeleteCallback]="onDelete.bind(this)"></to-do-list-item>
+    }
   </ul>
   <div class="add-task-container">
-    <input type="text" class="add-task-input" placeholder="Add your new todo" />
-    <button class="add-task-button">Add task</button>
+    <input
+      matInput
+      type="text"
+      class="add-task-input"
+      placeholder="Add your new todo"
+      [value]="this.inputText()"
+      (input)="this.onInputChange($event)"
+    />
+    <button class="button button--add" [disabled]="this.inputDisabled()" (click)="this.onAdd()">
+      Add task
+    </button>
   </div>
 </div>

@@ -15,20 +15,6 @@
   padding: 0;
 }
 
-.list-item {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 10px;
-  padding-right: 6px;
-  border-color: black;
-  background-color: lightgray;
-  margin-bottom: 8px;
-  justify-content: space-between;
-}
-
 .add-task-container {
   margin-top: 20px;
 }
@@ -40,19 +26,24 @@
   border-radius: 4px;
 }
 
-.add-task-button {
-  height: 35px;
+.button {
   border-radius: 5px;
   border-color: transparent;
-  background-color: rgb(195, 145, 255);
   color: white;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button--add {
+  height: 35px;
+  background-color: rgb(81, 239, 81);
   font-weight: bold;
 }
-
-.add-task-button:hover {
-  background-color: rgb(175, 110, 255);
+.button--add:hover {
+  background-color: rgb(70, 226, 70);
 }
-
-button:hover {
-  cursor: pointer;
+.button--add:disabled {
+  opacity: 0.5;
 }

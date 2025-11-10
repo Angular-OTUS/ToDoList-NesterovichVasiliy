@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ToDoTask } from '../types';
+import { ToDoTask } from '../../types';
+import { ButtonComponent } from "../button/button";
 
 @Component({
   selector: 'to-do-list-item',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './to-do-list-item.html',
   styleUrl: './to-do-list-item.scss',
 })

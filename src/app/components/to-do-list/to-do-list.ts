@@ -1,7 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { ToDoListItem } from '../../to-do-list-item/to-do-list-item';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToDoTask } from '../../types';
+import { ButtonComponent } from '../button/button';
+import { ToDoListItem } from '../to-do-list-item/to-do-list-item';
 
 const DEFAULT_TASKS: ToDoTask[] = [
   {
@@ -20,7 +22,7 @@ const DEFAULT_TASKS: ToDoTask[] = [
 
 @Component({
   selector: 'to-do-list',
-  imports: [ToDoListItem, MatInputModule],
+  imports: [ToDoListItem, MatInputModule, MatProgressSpinnerModule, ButtonComponent],
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
@@ -28,6 +30,13 @@ export class ToDoList {
   tasks = signal<ToDoTask[]>(DEFAULT_TASKS);
   inputText = signal<string>('');
   inputDisabled = computed<boolean>(() => this.inputText() === '');
+  isLoading = signal<boolean>(true);
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 500);
+  }
 
   onInputChange(event: Event) {
     const text = (event.target as HTMLInputElement).value;

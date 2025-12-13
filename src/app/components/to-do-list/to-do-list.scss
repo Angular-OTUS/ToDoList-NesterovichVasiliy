@@ -37,3 +37,18 @@
 .button--add:disabled {
   opacity: 0.5;
 }
+
+.list-with-description {
+  display: flex;
+  flex-direction: row;
+}
+
+.description {
+  width: 500px;
+  padding-left: 30px;
+}
+
+.add-task-with-description-container {
+  display: flex;
+  flex-direction: column;
+}

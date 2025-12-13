@@ -1,4 +1,4 @@
-<li class="list-item">
+<li class="list-item" [class.selected]="isSelected()">
   <span class="list-item-text">{{ task.text }}</span>
   <button-component title="Delete"></button-component>
   <!-- <button class="button button--delete" (click)="this.onDelete()">Delete</button> -->

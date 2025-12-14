@@ -1,10 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ShowTooltipDirective } from '../../directives';
-import { ToDoTask } from '../../types';
-import { ButtonComponent } from '../button/button';
-import { ToDoListItem } from '../to-do-list-item/to-do-list-item';
+import { Component, computed, signal, OnInit } from '@angular/core'
+import { MatInputModule } from '@angular/material/input'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { ShowTooltipDirective } from '../../directives'
+import { ToDoTask } from '../../types'
+import { ButtonComponent } from '../button/button'
+import { ToDoListItem } from '../to-do-list-item/to-do-list-item'
 
 const DEFAULT_TASKS: ToDoTask[] = [
   {
@@ -33,25 +33,31 @@ const DEFAULT_TASKS: ToDoTask[] = [
 
 @Component({
   selector: 'to-do-list',
-  imports: [ToDoListItem, MatInputModule, MatProgressSpinnerModule, ButtonComponent, ShowTooltipDirective],
+  imports: [
+    ToDoListItem,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    ButtonComponent,
+    ShowTooltipDirective,
+  ],
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
-export class ToDoList {
-  tasks = signal(DEFAULT_TASKS);
-  inputText = signal('');
-  descriptionText = signal('');
-  inputDisabled = computed(() => this.inputText() === '');
-  isLoading = signal(true);
-  selectedItemId = signal<number | null>(null);
+export class ToDoList implements OnInit {
+  tasks = signal(DEFAULT_TASKS)
+  inputText = signal('')
+  descriptionText = signal('')
+  inputDisabled = computed(() => this.inputText() === '')
+  isLoading = signal(true)
+  selectedItemId = signal<number | null>(null)
 
   selectedItem = computed(() => {
-    const id = this.selectedItemId();
+    const id = this.selectedItemId()
     if (id === null) {
-      return null;
+      return null
     }
-    return this.tasks().find((task: ToDoTask) => task.id === id) || null;
-  });
+    return this.tasks().find((task: ToDoTask) => task.id === id) || null
+  })
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -67,19 +73,19 @@ export class ToDoList {
   }
 
   onDescriptionChange(event: Event): void {
-    const text = (event.target as HTMLInputElement).value;
+    const text = (event.target as HTMLInputElement).value
     if (text !== this.descriptionText()) {
-      this.descriptionText.set(text);
+      this.descriptionText.set(text)
     }
   }
 
   onAdd(): void {
-    const id = Math.max(...this.tasks().map((x) => x.id)) + 1;
-    const text = this.inputText();
-    const description = this.descriptionText();
-    this.tasks.set([...this.tasks(), { id, text, description }]);
-    this.inputText.set('');
-    this.descriptionText.set('');
+    const id = Math.max(...this.tasks().map((x) => x.id)) + 1
+    const text = this.inputText()
+    const description = this.descriptionText()
+    this.tasks.set([...this.tasks(), { id, text, description }])
+    this.inputText.set('')
+    this.descriptionText.set('')
   }
 
   onDelete(id: number): void {
@@ -88,9 +94,9 @@ export class ToDoList {
 
   selectItem(id: number): void {
     if (id !== this.selectedItemId()) {
-      this.selectedItemId.set(id);
+      this.selectedItemId.set(id)
     } else {
-      this.selectedItemId.set(null);
+      this.selectedItemId.set(null)
     }
   }
 }

@@ -11,7 +11,7 @@ import { ButtonComponent } from '../button/button'
 export class ToDoListItem {
   readonly task = input.required<ToDoTask>()
   readonly onDeleteCallback = input.required<(id: number) => void>()
-  readonly isSelected = input<boolean>(false);
+  readonly isSelected = input<boolean>(false)
 
   onDelete(): void {
     this.onDeleteCallback()(this.task().id)

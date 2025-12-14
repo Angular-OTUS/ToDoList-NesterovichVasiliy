@@ -1,23 +1,23 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, HostListener, inject, input, Renderer2 } from '@angular/core'
 
 @Directive({
   selector: '[showTooltip]',
 })
 export class ShowTooltipDirective {
-  @Input('showTooltip') taskDescription!: string;
-  @Input() tooltipTarget!: HTMLElement;
+  readonly taskDescription = input<string>('')
+  readonly tooltipTarget = input<HTMLElement | null>(null)
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  private readonly renderer = inject(Renderer2)
 
   @HostListener('mouseenter')
-  onMouseEnter(): void {
-    if (this.taskDescription) {
-      this.renderer.setProperty(this.tooltipTarget, 'textContent', this.taskDescription);
+  onMouseEnter = (): void => {
+    if (this.taskDescription()) {
+      this.renderer.setProperty(this.tooltipTarget(), 'textContent', this.taskDescription())
     }
   }
 
   @HostListener('mouseleave')
-  onMouseLeave(): void {
-    this.renderer.setProperty(this.tooltipTarget, 'textContent', '');
+  onMouseLeave = (): void => {
+    this.renderer.setProperty(this.tooltipTarget(), 'textContent', '')
   }
 }

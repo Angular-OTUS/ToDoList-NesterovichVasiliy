@@ -12,7 +12,8 @@
             [onDeleteCallback]="onDelete.bind(this)"
             [isSelected]="selectedItemId() === task.id"
             (click)="selectItem(task.id)"
-            [showTooltip]="task.description"
+            showTooltip
+            [taskDescription]="task.description"
             [tooltipTarget]="descriptionContainer"
           ></to-do-list-item>
         }

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input } from '@angular/core'
 
 @Component({
   selector: 'button-component',
@@ -7,6 +7,6 @@ import { Component, input } from '@angular/core';
   styleUrl: './button.scss',
 })
 export class ButtonComponent {
-  readonly title = input.required<string>();
-  readonly disabled = input(false);
+  readonly title = input.required<string>()
+  readonly disabled = input(false)
 }

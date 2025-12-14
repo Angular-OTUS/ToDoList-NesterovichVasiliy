@@ -1,4 +1,4 @@
 export type ToDoTask = {
-    id: number;
-    text: string;
+  id: number
+  text: string
 }

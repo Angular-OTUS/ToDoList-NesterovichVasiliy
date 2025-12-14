@@ -1,11 +1,14 @@
-import { defineConfig } from 'eslint/config';
-import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
+import prettierConfig from 'eslint-config-prettier';
+import prettier from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   /* ============================================================
-   * Base JS / Browser environment
+   * Base JS
    * ============================================================ */
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
@@ -18,53 +21,61 @@ export default defineConfig([
   },
 
   /* ============================================================
-   * TypeScript (Angular source)
+   * TypeScript / Angular
    * ============================================================ */
   {
     files: ['**/*.ts'],
     extends: [
       ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      prettierConfig, // ⬅ disables conflicting ESLint rules
     ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
-        sourceType: 'module',
       },
       globals: {
         ...globals.browser,
         ...globals.es2022,
       },
     },
+    plugins: {
+      prettier,
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
-      '@angular-eslint/component-selector': [
+      /* Prettier as ESLint */
+      'prettier/prettier': [
         'error',
         {
-          type: 'element',
-          style: 'kebab-case',
+          semi: false,
+          singleQuote: true,
+          printWidth: 100,
+          trailingComma: 'all',
+          endOfLine: 'auto',
         },
       ],
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          style: 'camelCase',
-        },
-      ],
+      /* Optional Angular rules */
+      '@angular-eslint/component-selector': ['error', { type: 'element', style: 'kebab-case' }],
+      '@angular-eslint/directive-selector': ['error', { type: 'attribute', style: 'camelCase' }],
       'comma-dangle': ['error', 'always-multiline'],
       semi: ['error', 'never'],
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   },
 
   /* ============================================================
-   * Angular templates (*.html)
+   * Angular Templates
    * ============================================================ */
   {
     files: ['**/*.html'],
-    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    extends: [...angular.configs.templateRecommended, prettierConfig],
+    plugins: {
+      prettier,
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
   },
 ]);

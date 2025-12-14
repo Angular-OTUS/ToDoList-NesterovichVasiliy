@@ -2,8 +2,8 @@
   border-radius: 5px;
   border-color: transparent;
   color: white;
-}
 
-.button:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }

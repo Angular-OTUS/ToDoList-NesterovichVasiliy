@@ -1,6 +1,6 @@
-import { Component, input, Input } from '@angular/core';
-import { ToDoTask } from '../../types';
-import { ButtonComponent } from "../button/button";
+import { Component, input } from '@angular/core'
+import { ToDoTask } from '../../types'
+import { ButtonComponent } from '../button/button'
 
 @Component({
   selector: 'to-do-list-item',
@@ -9,12 +9,11 @@ import { ButtonComponent } from "../button/button";
   styleUrl: './to-do-list-item.scss',
 })
 export class ToDoListItem {
-  @Input({ required: true }) task!: ToDoTask;
-  @Input({ required: true }) onDeleteCallback!: (id: number) => void;
-  
-  isSelected = input<boolean>(false);
+  readonly task = input.required<ToDoTask>()
+  readonly onDeleteCallback = input.required<(id: number) => void>()
+  readonly isSelected = input<boolean>(false);
 
-  onDelete() {
-    this.onDeleteCallback(this.task.id);
+  onDelete(): void {
+    this.onDeleteCallback()(this.task().id)
   }
 }

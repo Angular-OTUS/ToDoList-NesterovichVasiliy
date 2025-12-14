@@ -1,48 +1,48 @@
 @if (isLoading()) {
-<mat-spinner></mat-spinner>
+  <mat-spinner />
 } @else {
-<div class="list-container">
-  <h1 class="list-header">Todo List</h1>
+  <div class="list-container">
+    <h1 class="list-header">Todo List</h1>
 
-  <div class="list-with-description">
-    <ul class="list">
-      @for (task of tasks(); track task.id) {
-      <to-do-list-item
-        [task]="task"
-        [onDeleteCallback]="onDelete.bind(this)"
-        [isSelected]="selectedItemId() === task.id"
-        (click)="selectItem(task.id)"
-        [showTooltip]="task.description"
-        [tooltipTarget]="descriptionContainer"
-      ></to-do-list-item>
-      }
-    </ul>
-    <div class="description" #descriptionContainer>
+    <div class="list-with-description">
+      <ul class="list">
+        @for (task of tasks(); track task.id) {
+          <to-do-list-item
+            [task]="task"
+            [onDeleteCallback]="onDelete.bind(this)"
+            [isSelected]="selectedItemId() === task.id"
+            (click)="selectItem(task.id)"
+            [showTooltip]="task.description"
+            [tooltipTarget]="descriptionContainer"
+          ></to-do-list-item>
+        }
+      </ul>
+      <div class="description" #descriptionContainer></div>
+    </div>
+    <div class="add-task-with-description-container">
+      <div class="add-task-container">
+        <input
+          matInput
+          type="text"
+          class="add-task-input"
+          placeholder="Add your new todo"
+          [value]="this.inputText()"
+          (input)="this.onInputChange($event)"
+        />
+        <button-component
+          title="Add task"
+          [disabled]="inputDisabled()"
+          (click)="onAdd()"
+        ></button-component>
+      </div>
+      <div class="add-task-description">
+        <textarea
+          matInput
+          rows="5"
+          [value]="this.descriptionText()"
+          (input)="this.onDescriptionChange($event)"
+        ></textarea>
+      </div>
     </div>
   </div>
-  <div class="add-task-with-description-container">
-    <div class="add-task-container">
-      <input
-        matInput
-        type="text"
-        class="add-task-input"
-        placeholder="Add your new todo"
-        [value]="this.inputText()"
-        (input)="this.onInputChange($event)"
-      />
-      <button-component title="Add task"></button-component>
-      <!-- <button class="button button--add" [disabled]="this.inputDisabled()" (click)="this.onAdd()">
-      Add task
-    </button> -->
-    </div>
-    <div class="add-task-description">
-      <textarea
-        matInput
-        rows="5"
-        [value]="this.descriptionText()"
-        (input)="this.onDescriptionChange($event)"
-      ></textarea>
-    </div>
-  </div>
-</div>
 }

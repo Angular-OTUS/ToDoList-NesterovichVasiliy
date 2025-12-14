@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { ToDoList } from './components/to-do-list/to-do-list';
+import { Component, signal } from '@angular/core'
+import { ToDoList } from './components/to-do-list/to-do-list'
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,5 @@ import { ToDoList } from './components/to-do-list/to-do-list';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('ToDoList-NesterovichVasiliy');
+  protected readonly title = signal('ToDoList-NesterovichVasiliy')
 }

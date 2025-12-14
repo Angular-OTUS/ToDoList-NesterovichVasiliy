@@ -29,7 +29,7 @@ const DEFAULT_TASKS: ToDoTask[] = [
      задачами: создание, редактирование, удаление, фильтрация. Добавить поддержку темной темы и локализации. Использовать RxJS 
      для управления состоянием и HttpClient для работы с API.`,
   },
-];
+]
 
 @Component({
   selector: 'to-do-list',
@@ -38,11 +38,11 @@ const DEFAULT_TASKS: ToDoTask[] = [
   styleUrl: './to-do-list.scss',
 })
 export class ToDoList {
-  tasks = signal<ToDoTask[]>(DEFAULT_TASKS);
-  inputText = signal<string>('');
-  descriptionText = signal<string>('');
-  inputDisabled = computed<boolean>(() => this.inputText() === '');
-  isLoading = signal<boolean>(true);
+  tasks = signal(DEFAULT_TASKS);
+  inputText = signal('');
+  descriptionText = signal('');
+  inputDisabled = computed(() => this.inputText() === '');
+  isLoading = signal(true);
   selectedItemId = signal<number | null>(null);
 
   selectedItem = computed(() => {
@@ -53,27 +53,27 @@ export class ToDoList {
     return this.tasks().find((task: ToDoTask) => task.id === id) || null;
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout(() => {
-      this.isLoading.set(false);
-    }, 500);
+      this.isLoading.set(false)
+    }, 500)
   }
 
-  onInputChange(event: Event) {
-    const text = (event.target as HTMLInputElement).value;
+  onInputChange(event: Event): void {
+    const text = (event.target as HTMLInputElement).value
     if (text !== this.inputText()) {
-      this.inputText.set(text);
+      this.inputText.set(text)
     }
   }
 
-  onDescriptionChange(event: Event) {
+  onDescriptionChange(event: Event): void {
     const text = (event.target as HTMLInputElement).value;
     if (text !== this.descriptionText()) {
       this.descriptionText.set(text);
     }
   }
 
-  onAdd() {
+  onAdd(): void {
     const id = Math.max(...this.tasks().map((x) => x.id)) + 1;
     const text = this.inputText();
     const description = this.descriptionText();
@@ -82,11 +82,11 @@ export class ToDoList {
     this.descriptionText.set('');
   }
 
-  onDelete(id: number) {
-    this.tasks.set(this.tasks().filter((x) => x.id !== id));
+  onDelete(id: number): void {
+    this.tasks.set(this.tasks().filter((x) => x.id !== id))
   }
 
-  selectItem(id: number) {
+  selectItem(id: number): void {
     if (id !== this.selectedItemId()) {
       this.selectedItemId.set(id);
     } else {

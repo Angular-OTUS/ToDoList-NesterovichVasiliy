@@ -1,43 +1,70 @@
-// @ts-check
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
+import angular from 'angular-eslint';
+import globals from 'globals';
 
-module.exports = [
+export default defineConfig([
+  /* ============================================================
+   * Base JS / Browser environment
+   * ============================================================ */
+  {
+    files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2022,
+      },
+    },
+  },
+
+  /* ============================================================
+   * TypeScript (Angular source)
+   * ============================================================ */
   {
     files: ['**/*.ts'],
     extends: [
-      eslint.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
-    processor: angular.processInlineTemplates,
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.es2022,
+      },
+    },
     rules: {
-      'comma-dangle': ['error', 'always-multiline'],
-
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: '',
-          style: 'camelCase',
-        },
-      ],
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
-          prefix: '',
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          style: 'camelCase',
+        },
+      ],
+      'comma-dangle': ['error', 'always-multiline'],
+      semi: ['error', 'never'],
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   },
 
+  /* ============================================================
+   * Angular templates (*.html)
+   * ============================================================ */
   {
     files: ['**/*.html'],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-    rules: {},
   },
-];
+]);

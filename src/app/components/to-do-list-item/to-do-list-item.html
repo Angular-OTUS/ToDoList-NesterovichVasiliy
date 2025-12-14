@@ -1,5 +1,4 @@
 <li class="list-item">
-  <span class="list-item-text">{{ task.text }}</span>
-  <button-component title="Delete"></button-component>
-  <!-- <button class="button button--delete" (click)="this.onDelete()">Delete</button> -->
+  <span class="list-item-text">{{ task().text }}</span>
+  <button-component title="Delete" (click)="onDelete()" />
 </li>

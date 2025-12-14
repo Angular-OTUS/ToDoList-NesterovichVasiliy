@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToDoTask } from '../../types';
@@ -26,33 +26,33 @@ const DEFAULT_TASKS: ToDoTask[] = [
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
-export class ToDoList {
-  tasks = signal<ToDoTask[]>(DEFAULT_TASKS);
-  inputText = signal<string>('');
-  inputDisabled = computed<boolean>(() => this.inputText() === '');
-  isLoading = signal<boolean>(true);
+export class ToDoList implements OnInit {
+  readonly tasks = signal(DEFAULT_TASKS);
+  readonly inputText = signal('');
+  readonly isLoading = signal(true);
+  inputDisabled = computed(() => this.inputText() === '');
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout(() => {
       this.isLoading.set(false);
     }, 500);
   }
 
-  onInputChange(event: Event) {
+  onInputChange(event: Event): void {
     const text = (event.target as HTMLInputElement).value;
     if (text !== this.inputText()) {
       this.inputText.set(text);
     }
   }
 
-  onAdd() {
+  onAdd(): void {
     const id = Math.max(...this.tasks().map((x) => x.id)) + 1;
     const text = this.inputText();
     this.tasks.set([...this.tasks(), { id, text }]);
     this.inputText.set('');
   }
 
-  onDelete(id: number) {
+  onDelete(id: number): void {
     this.tasks.set(this.tasks().filter((x) => x.id !== id));
   }
 }

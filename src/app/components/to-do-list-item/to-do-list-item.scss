@@ -12,18 +12,10 @@
   justify-content: space-between;
 }
 
-.button {
-  border-radius: 5px;
-  border-color: transparent;
-  color: white;
-}
-.button:hover {
-  cursor: pointer;
-}
-
 .button--delete {
   background-color: rgb(255, 110, 110);
-}
-.button--delete:hover  {
-  background-color: rgb(240, 91, 91);
+
+  &:hover {
+    background-color: rgb(240, 91, 91);
+  }
 }

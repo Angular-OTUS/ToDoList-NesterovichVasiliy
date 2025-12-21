@@ -1,21 +1,24 @@
-<div class="list-container">
-  <h1 class="list-header">Todo List</h1>
-  <ul class="list">
-    @for (task of tasks(); track task.id) {
-      <to-do-list-item [task]="task" [onDeleteCallback]="onDelete.bind(this)"></to-do-list-item>
-    }
-  </ul>
-  <div class="add-task-container">
-    <input
-      matInput
-      type="text"
-      class="add-task-input"
-      placeholder="Add your new todo"
-      [value]="this.inputText()"
-      (input)="this.onInputChange($event)"
-    />
-    <button class="button button--add" [disabled]="this.inputDisabled()" (click)="this.onAdd()">
-      Add task
-    </button>
+@if (isLoading()) {
+  <mat-spinner />
+} @else {
+  <div class="list-container">
+    <h1 class="list-header">Todo List</h1>
+
+    <ul class="list">
+      @for (task of tasks(); track task.id) {
+        <to-do-list-item [task]="task" [onDeleteCallback]="onDelete.bind(this)" />
+      }
+    </ul>
+    <div class="add-task-container">
+      <input
+        matInput
+        type="text"
+        class="add-task-input"
+        placeholder="Add your new todo"
+        [value]="inputText()"
+        (input)="onInputChange($event)"
+      />
+      <button-component title="Add task" [disabled]="inputDisabled()" (click)="onAdd()" />
+    </div>
   </div>
-</div>
+}

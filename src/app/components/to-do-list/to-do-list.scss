@@ -26,24 +26,15 @@
   border-radius: 4px;
 }
 
-.button {
-  border-radius: 5px;
-  border-color: transparent;
-  color: white;
-}
-
-.button:hover {
-  cursor: pointer;
-}
-
 .button--add {
   height: 35px;
   background-color: rgb(81, 239, 81);
   font-weight: bold;
-}
-.button--add:hover {
-  background-color: rgb(70, 226, 70);
-}
-.button--add:disabled {
-  opacity: 0.5;
+
+  &:hover {
+    background-color: rgb(70, 226, 70);
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
 }

@@ -14,11 +14,10 @@
             (click)="selectItem(task.id)"
             showTooltip
             [taskDescription]="task.description"
-            [tooltipTarget]="descriptionContainer"
           ></to-do-list-item>
         }
       </ul>
-      <div class="description" #descriptionContainer></div>
+      <div class="description">{{ selectedItem()?.description }}</div>
     </div>
     <div class="add-task-with-description-container">
       <div class="add-task-container">
@@ -27,8 +26,8 @@
           type="text"
           class="add-task-input"
           placeholder="Add your new todo"
-          [value]="this.inputText()"
-          (input)="this.onInputChange($event)"
+          [value]="inputText()"
+          (input)="onInputChange($event)"
         />
         <button-component
           title="Add task"
@@ -40,8 +39,8 @@
         <textarea
           matInput
           rows="5"
-          [value]="this.descriptionText()"
-          (input)="this.onDescriptionChange($event)"
+          [value]="descriptionText()"
+          (input)="onDescriptionChange($event)"
         ></textarea>
       </div>
     </div>

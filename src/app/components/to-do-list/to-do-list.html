@@ -6,11 +6,11 @@
 
     <div class="list-with-description">
       <ul class="list">
-        @for (task of tasks(); track task.id) {
+        @for (task of service.items(); track task.id) {
           <to-do-list-item
             [task]="task"
             [onDeleteCallback]="onDelete.bind(this)"
-            [isSelected]="selectedItemId() === task.id"
+            [isSelected]="service.selectedItem()?.id === task.id"
             (click)="selectItem(task.id)"
             showTooltip
             [taskDescription]="task.description"

@@ -1,0 +1,4 @@
+<li class="list-item" [class.selected]="isSelected()">
+  <span class="list-item-text">{{ task().text }}</span>
+  <button-component title="Delete" (click)="$event.stopPropagation(); onDelete()" />
+</li>

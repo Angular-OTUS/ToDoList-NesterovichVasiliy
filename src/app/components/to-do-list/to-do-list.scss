@@ -15,20 +15,6 @@
   padding: 0;
 }
 
-.list-item {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 10px;
-  padding-right: 6px;
-  border-color: black;
-  background-color: lightgray;
-  margin-bottom: 8px;
-  justify-content: space-between;
-}
-
 .add-task-container {
   margin-top: 20px;
 }
@@ -40,19 +26,30 @@
   border-radius: 4px;
 }
 
-.add-task-button {
+.button--add {
   height: 35px;
-  border-radius: 5px;
-  border-color: transparent;
-  background-color: rgb(195, 145, 255);
-  color: white;
+  background-color: rgb(81, 239, 81);
   font-weight: bold;
+
+  &:hover {
+    background-color: rgb(70, 226, 70);
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
-.add-task-button:hover {
-  background-color: rgb(175, 110, 255);
+.list-with-description {
+  display: flex;
+  flex-direction: row;
 }
 
-button:hover {
-  cursor: pointer;
+.description {
+  width: 500px;
+  padding-left: 30px;
+}
+
+.add-task-with-description-container {
+  display: flex;
+  flex-direction: column;
 }

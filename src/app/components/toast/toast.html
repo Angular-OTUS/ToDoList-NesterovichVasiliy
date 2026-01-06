@@ -1,0 +1,20 @@
+<div class="toast" [class]="toast().type" role="alert">
+  <div class="toast-content">
+    <span class="toast-message">{{ toast().message }}</span>
+  </div>
+  <div class="toast-actions">
+    @if (toast().autoClose) {
+      <button class="btn-pause" (click)="pauseEvent.emit(toast().id)" title="Остановить таймер">
+        ⏸️
+      </button>
+    }
+
+    @if (!toast().autoClose) {
+      <button class="btn-resume" (click)="resumeEvent.emit(toast().id)" title="Возобновить таймер">
+        ▶️
+      </button>
+    }
+
+    <button class="btn-close" (click)="closeEvent.emit(toast().id)" title="Закрыть">✕</button>
+  </div>
+</div>

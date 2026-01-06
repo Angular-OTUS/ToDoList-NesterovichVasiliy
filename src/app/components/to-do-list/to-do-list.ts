@@ -5,6 +5,7 @@ import { ShowTooltipDirective } from '../../directives'
 import { ToDoListService } from '../../services/to-do-list.service'
 import { ButtonComponent } from '../button/button'
 import { ToDoListItem } from '../to-do-list-item/to-do-list-item'
+import { ToastService } from '../../services/toast.service'
 
 @Component({
   selector: 'to-do-list',
@@ -20,6 +21,7 @@ import { ToDoListItem } from '../to-do-list-item/to-do-list-item'
 })
 export class ToDoList implements OnInit {
   readonly service = inject(ToDoListService)
+  readonly toastService = inject(ToastService)
 
   readonly inputText = signal('')
   readonly descriptionText = signal('')
@@ -60,6 +62,7 @@ export class ToDoList implements OnInit {
     const text = this.inputText()
     const description = this.descriptionText()
     this.service.add(text, description)
+    this.toastService.showToast('Task added')
     this.clearInputs()
   }
 
@@ -67,11 +70,13 @@ export class ToDoList implements OnInit {
     const title = this.editorInputText()
     const { id, description } = this.service.selectedItem()!
     this.service.update(id, title, description)
+    this.toastService.showToast('Task updated')
     this.clearInputs()
   }
 
   onDelete(id: number): void {
     this.service.delete(id)
+    this.toastService.showToast('Task deleted')
   }
 
   selectItem(id: number): void {

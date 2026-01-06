@@ -4,21 +4,21 @@ import { ToDoTask } from '../types'
 const DEFAULT_TASKS: ToDoTask[] = [
   {
     id: 1,
-    text: 'Buy a new gaming laptop',
+    title: 'Buy a new gaming laptop',
     description: `Необходимо приобрести новый игровой ноутбук для работы с требовательными приложениями и современными играми.
      Основные требования: процессор Core i7/i9 или Ryzen 7/9, видеокарта RTX 4070 или выше, минимум 32GB оперативной памяти,
       SSD 1TB, качественный дисплей с высокой частотой обновления. Бюджет до 2500$. Рассмотреть модели ASUS ROG, Lenovo Legion и MSI.`,
   },
   {
     id: 2,
-    text: 'Complete previous task',
+    title: 'Complete previous task',
     description: `Важно завершить все предыдущие задачи перед началом новых. Составить список незавершенных дел, определить
      приоритеты выполнения, выделить время на каждую задачу. Провести анализ причин задержек и разработать стратегию для более
       эффективного выполнения задач в будущем. Составить отчет о выполнении.`,
   },
   {
     id: 3,
-    text: 'Create some angular app',
+    title: 'Create some angular app',
     description: `Разработать Angular приложение с использованием последней версии фреймворка. Архитектура должна включать
      модульную структуру, lazy loading, reactive forms, Angular Material для UI компонентов. Реализовать функционал управления 
      задачами: создание, редактирование, удаление, фильтрация. Добавить поддержку темной темы и локализации. Использовать RxJS 
@@ -42,9 +42,15 @@ export class ToDoListService {
     return this._items().find((task: ToDoTask) => task.id === id) || null
   })
 
-  public add(text: string, description: string) {
+  public add(title: string, description: string) {
     const id = Math.max(...this._items().map((x) => x.id)) + 1
-    this._items.set([...this._items(), { id, text, description }])
+    this._items.set([...this._items(), { id, title, description }])
+  }
+
+  public update(id: number, title: string, description: string) {
+    this._items.update((items) =>
+      items.map((item) => (item.id === id ? { ...item, title, description } : item)),
+    )
   }
 
   public delete(id: number) {

@@ -11,13 +11,28 @@
             [task]="task"
             [onDeleteCallback]="onDelete.bind(this)"
             [isSelected]="service.selectedItem()?.id === task.id"
-            (click)="selectItem(task.id)"
+            (dblclick)="selectItem(task.id)"
             showTooltip
             [taskDescription]="task.description"
           ></to-do-list-item>
         }
       </ul>
-      <div class="description">{{ selectedItem()?.description }}</div>
+      <div class="editor">
+        @if (shouldShowEditor()) {
+          <input
+            matInput
+            type="text"
+            placeholder="Enter new text..."
+            [value]="service.selectedItem()!.title"
+            (input)="onEditorInputChange($event)"
+          />
+          <button-component
+            title="Update task"
+            [disabled]="editorInputDisabled()"
+            (click)="onUpdate()"
+          ></button-component>
+        }
+      </div>
     </div>
     <div class="add-task-with-description-container">
       <div class="add-task-container">

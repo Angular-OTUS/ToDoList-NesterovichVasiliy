@@ -1,5 +1,5 @@
 export type ToDoTask = {
   id: number
-  text: string
+  title: string
   description: string
 }

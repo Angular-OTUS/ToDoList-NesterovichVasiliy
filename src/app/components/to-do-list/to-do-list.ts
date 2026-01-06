@@ -25,6 +25,9 @@ export class ToDoList implements OnInit {
   readonly descriptionText = signal('')
   readonly inputDisabled = computed(() => this.inputText() === '')
   readonly isLoading = signal(true)
+  readonly shouldShowEditor = computed(() => !!this.service.selectedItem())
+  readonly editorInputText = signal('')
+  readonly editorInputDisabled = computed(() => this.editorInputText() === '')
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -46,10 +49,24 @@ export class ToDoList implements OnInit {
     }
   }
 
+  onEditorInputChange(event: Event): void {
+    const text = (event.target as HTMLInputElement).value
+    if (text !== this.editorInputText()) {
+      this.editorInputText.set(text)
+    }
+  }
+
   onAdd(): void {
     const text = this.inputText()
     const description = this.descriptionText()
     this.service.add(text, description)
+    this.clearInputs()
+  }
+
+  onUpdate(): void {
+    const title = this.editorInputText()
+    const { id, description } = this.service.selectedItem()!
+    this.service.update(id, title, description)
     this.clearInputs()
   }
 
@@ -64,5 +81,6 @@ export class ToDoList implements OnInit {
   private clearInputs() {
     this.inputText.set('')
     this.descriptionText.set('')
+    this.editorInputText.set('')
   }
 }
